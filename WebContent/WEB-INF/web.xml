@@ -23,4 +23,5 @@
 		<url-pattern>*.idg</url-pattern>
 	</servlet-mapping>
 
+
 </web-app>
