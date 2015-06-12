@@ -1,0 +1,208 @@
+<!--
+	创建时间 ： 2015年6月4日
+	创建人 ： LiRongZhu
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Insert title here</title>
+		<script type="text/javascript" src="js/import.js" ></script>
+
+		<style type="text/css">
+
+			.fuzzyDom {
+				-webkit-filter: blur(3px);
+				-moz-filter: blur(3px);
+				-o-filter: blur(3px);
+				-ms-filter: blur(3px);
+				filter: blur(3px);
+			}
+			
+			body > div:first-child {
+				
+				color:white;
+				background-color: darkgray;
+				height: 30px;
+				text-align: right;
+				padding-right:15px;
+				padding-top: 5px;
+			}
+			
+			#alreadyLastPage {
+				
+				color:white;
+				background-color: darkgray;
+				height: 30px;
+				text-align: center;
+				padding-right:15px;
+				padding-top: 5px;
+				margin-top: 30px;
+			}
+
+		</style>
+
+		<script type="text/javascript">
+
+			$(function(){
+	
+				getMenu();
+				
+				startgps();
+				
+				$(window).scroll(function() {
+					
+					if($(document).height() - $(window).height() <= $(document).scrollTop()){
+						
+						$("#currentPage").val(Number($("#currentPage").val()) +1);
+						getMenu();
+					}
+				});
+				
+				$("#clickMe").click(function(){
+
+					$('#myModal').modal('show');
+					$("body>div:eq(0)").addClass("fuzzyDom");
+					$("body>div:eq(1)").addClass("fuzzyDom");
+				})
+				
+				$("#loginOut").click(function(){
+					
+					window.location.href = "initLogin.idg"
+				})
+
+				$('#myModal').on('hide.bs.modal', function (e) {
+
+					$("body>div:eq(0)").removeClass("fuzzyDom");
+					$("body>div:eq(1)").removeClass("fuzzyDom");
+				})
+				
+				$("#fileContent").uploadify({
+					'swf' : './component/uploadify/uploadify.swf',
+					'uploader' : 'fileUpload.idg',
+					'buttonText' : '上传',
+					'fileObjName' : 'fileContent', 
+					'type' : 'post',
+					'onUploadSuccess' : function(data, response) {
+						
+						alert(response + ':' + data);
+					}
+				});
+			})
+				
+			function getMenu(){
+				
+				$.ajax({
+					url:"getMenu.idg",
+					type: 'post',
+					dataType:"text",
+					data : {"currentPage" : $("#currentPage").val()},
+					success:function(data){
+
+						if(data != ""){
+							
+							var list = JSON.parse(data);
+							var innerHtml = "";
+
+							for(var i=0;i<list.length;i++){
+
+								innerHtml += '<div class="col-md-3 col-sm-6 col-xs-6" style="margin-top:15px;">'
+								innerHtml += '<div style="border:solid 2px gray;border-radius: 5px;">'
+								innerHtml += "<div style='height:250px;'><img src='"+list[i].imageUrl+"' style='width:100%;height:100%;'></div>";
+								innerHtml += "<div style='padding-top:2px;padding-bottom:7px;text-align:center;'><h3>";
+								innerHtml += list[i].name+"</h3></div>";
+								innerHtml += '</div>'
+								innerHtml += '</div>'
+							}
+
+							$("#menuDiv > .row").append(innerHtml);
+						}else {
+							
+							var afterHtml = '<div id="alreadyLastPage">已到最底部<div>';
+							$(window).unbind("scroll");
+							$("#currentPage").after(afterHtml);
+						}
+					},
+					error:function(data){
+
+						alert(data);
+					}
+				});
+			}
+			
+			function startgps(){
+				var gps = navigator.geolocation;
+				
+				if (gps){
+					gps.getCurrentPosition(showgps,function(error){
+						
+/* 						alert("Got an error, code: " + error.code + " message: "+ error.message); */
+					},{maximumAge: 10000,enableHighAcuracy: true}); 
+				}else{
+					showgps();
+				}
+			}
+
+			function showgps(position){
+			
+				if (position){
+				
+					var latitude = position.coords.latitude;
+					var longitude = position.coords.longitude;
+					/* alert("latitude: " + latitude + "\r\n longitude: "+ longitude); */
+				}else{
+					
+/* 					alert("position is null");
+ */				}
+			}
+		</script>
+	</head>
+	<body>
+		<div>
+			<span id="clickMe" >User Information</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+			<span id="loginOut" >Login Out</span>
+		</div>
+		<div class="container" id="menuDiv">
+			<div class="row">
+			</div>
+		</div>
+		
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+				data-backdrop="static" style="margin-top: 10%;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Information</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+						<div style="height: 150px;width: 150px;padding-left: 10px;">
+							<img src='./img/User Image/Lurch.ico' style='width:100%;height:100%;'>
+							</div>
+							<div style="position: absolute;top: 20px;left: 170px;">
+							<label style="width: 80%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+								Name : Nash<br/>
+								Age : 25<br/>
+								Group : Admin<br/>
+								Level : Seven<br/>
+								Address : XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+							</label>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<input type="file" name="fileContent" id="fileContent" value="" />
+		<input type="button" id="fileSubmit" value="确认提交">
+		
+		<input type="hidden" id="currentPage" value="1">
+	</body>
+</html>
