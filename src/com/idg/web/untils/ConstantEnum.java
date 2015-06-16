@@ -2,8 +2,8 @@ package com.idg.web.untils;
 
 public enum ConstantEnum {
 
-	COVER_IMAGE_FOLDER("img/Cover Image/"),
-	USER_IMAGE_FOLDER("img/User Image/");
+	COVER_IMAGE_FOLDER("img/CoverImage/"),
+	USER_IMAGE_FOLDER("img/UserImage/");
 	
 	// 定义私有变量
 	private String local ;

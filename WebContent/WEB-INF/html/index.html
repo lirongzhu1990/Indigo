@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!--
 	创建时间 ： 2015年6月4日
 	创建人 ： LiRongZhu
@@ -14,14 +13,6 @@
 
 		<style type="text/css">
 
-			.fuzzyDom {
-				-webkit-filter: blur(3px);
-				-moz-filter: blur(3px);
-				-o-filter: blur(3px);
-				-ms-filter: blur(3px);
-				filter: blur(3px);
-			}
-			
 			body > div:first-child {
 				
 				color:white;
@@ -32,17 +23,6 @@
 				padding-top: 5px;
 			}
 			
-			#alreadyLastPage {
-				
-				color:white;
-				background-color: darkgray;
-				height: 30px;
-				text-align: center;
-				padding-right:15px;
-				padding-top: 5px;
-				margin-top: 30px;
-			}
-
 		</style>
 
 		<script type="text/javascript">
@@ -51,7 +31,7 @@
 	
 				getMenu();
 				
-				startgps();
+				//startgps();
 				
 				$(window).scroll(function() {
 					
@@ -110,10 +90,8 @@
 							for(var i=0;i<list.length;i++){
 
 								innerHtml += '<div class="col-md-3 col-sm-6 col-xs-6" style="margin-top:15px;">'
-								innerHtml += '<div style="border:solid 2px gray;border-radius: 5px;">'
-								innerHtml += "<div style='height:250px;'><img src='"+list[i].imageUrl+"' style='width:100%;height:100%;'></div>";
-								innerHtml += "<div style='padding-top:2px;padding-bottom:7px;text-align:center;'><h3>";
-								innerHtml += list[i].name+"</h3></div>";
+								innerHtml += '<div style="padding:1px;max-height: 350px;">'
+								innerHtml += "<img src='"+list[i].imageUrl+"' style='width:100%;opacity:0.7;max-height: 344px;border-radius:5px;'>";
 								innerHtml += '</div>'
 								innerHtml += '</div>'
 							}
@@ -181,7 +159,7 @@
 					<div class="modal-body">
 						<div class="row">
 						<div style="height: 150px;width: 150px;padding-left: 10px;">
-							<img src='./img/User Image/Lurch.ico' style='width:100%;height:100%;'>
+							<img src='./img/UserImage/Lurch.ico' style='width:100%;height:100%;'>
 							</div>
 							<div style="position: absolute;top: 20px;left: 170px;">
 							<label style="width: 80%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
@@ -202,21 +180,7 @@
 		</div>
 		
 		<input type="file" name="fileContent" id="fileContent" value="" />
-		<input type="button" id="fileSubmit" value="确认提交">
 		
 		<input type="hidden" id="currentPage" value="1">
 	</body>
-=======
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		<title>Insert title here</title>
-	</head>
-	<body>
-	</body>
->>>>>>> 4ebb7f5603602d0d594bbfa722968eb59746f331
 </html>

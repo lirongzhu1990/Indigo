@@ -41,6 +41,9 @@ public class User extends ParentBean{
 	@Column(length=30,name="ALIAS")
 	private String alias;
 	
+	@Column(length=100,name="IMAGEURL")
+	private String imageUrl;
+	
 	@Column(name="ISACTIVE",nullable=false)
 	private int isActive;
 	

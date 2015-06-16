@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="Indigo">
@@ -8,14 +7,3 @@
         <property name="java-output-path" value="/Indigo/build/classes"/>
     </wb-module>
 </project-modules>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="indigo">
-        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="indigo"/>
-        <property name="java-output-path" value="/indigo/build/classes"/>
-    </wb-module>
-</project-modules>
->>>>>>> 4ebb7f5603602d0d594bbfa722968eb59746f331

@@ -1,11 +1,18 @@
 package com.idg.web.controller;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
-import java.util.Random;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,7 +24,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.idg.web.bean.Menu;
 import com.idg.web.service.MenuService;
-import com.idg.web.untils.ConstantEnum;
 
 @Controller
 public class IndexController extends ParentController {
@@ -45,5 +51,62 @@ public class IndexController extends ParentController {
 			
 			e.printStackTrace();
 		}
+		
+		getRequest();
 	}
+	
+	  public static String getRequest() {
+		  
+		  	String requestUrl = "http://huaban.com/favorite/design/?iaxpuyr7&max=402757847&limit=20&wfl=1";
+	        
+		  	StringBuffer sb = new StringBuffer();
+	        InputStream ips = getInputStream(requestUrl);
+	        InputStreamReader isreader = null;
+	        try {
+	            isreader = new InputStreamReader(ips, "utf-8");
+	        } catch (UnsupportedEncodingException e) {
+	            e.printStackTrace();
+	        }
+	        BufferedReader bufferedReader = new BufferedReader(isreader);
+	        String temp = null;
+	        try {
+	            while ((temp = bufferedReader.readLine()) != null) {
+	                sb.append(temp);
+	            }
+	            bufferedReader.close();
+	            isreader.close();
+	            ips.close();
+	            ips = null;
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } 
+	        return sb.toString();
+	    }
+	 
+	    /**
+	     * 从请求的URL中获取返回的流数据
+	     * @param requestUrl
+	     * @return InputStream
+	     */
+	    private static InputStream getInputStream(String requestUrl) {
+	        URL url = null;
+	        HttpURLConnection conn = null;
+	        InputStream in = null;
+	        try {
+	            url = new URL(requestUrl);
+	        } catch (MalformedURLException e) {
+	            e.printStackTrace();
+	        }
+	        try {
+	            conn = (HttpURLConnection) url.openConnection();
+	            conn.setDoInput(true);
+	            conn.setRequestMethod("GET");
+	            conn.connect();
+	 
+	            in = conn.getInputStream();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        return in;
+	    }
 }
