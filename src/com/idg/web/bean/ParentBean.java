@@ -1,5 +1,6 @@
 package com.idg.web.bean;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,6 +10,14 @@ import javax.persistence.TemporalType;
 
 @MappedSuperclass
 public abstract class ParentBean {
+	
+	public ParentBean(){
+		
+		this.setCreateUser(null);
+		this.setCreateDate(null);
+		this.setModifyUser(null);
+		this.setModifyDate(null);
+	}
 	
 	@Column(name="CREATEUSER",length=32)
 	private String createUser;
@@ -37,7 +46,8 @@ public abstract class ParentBean {
 	}
 
 	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+		
+		this.createDate = Calendar.getInstance().getTime();
 	}
 
 	public String getModifyUser() {
@@ -53,6 +63,6 @@ public abstract class ParentBean {
 	}
 
 	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
+		this.modifyDate =  Calendar.getInstance().getTime();;
 	}
 }

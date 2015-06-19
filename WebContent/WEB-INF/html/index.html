@@ -59,18 +59,6 @@
 					$("body>div:eq(0)").removeClass("fuzzyDom");
 					$("body>div:eq(1)").removeClass("fuzzyDom");
 				})
-				
-				$("#fileContent").uploadify({
-					'swf' : './component/uploadify/uploadify.swf',
-					'uploader' : 'fileUpload.idg',
-					'buttonText' : '上传',
-					'fileObjName' : 'fileContent', 
-					'type' : 'post',
-					'onUploadSuccess' : function(data, response) {
-						
-						alert(response + ':' + data);
-					}
-				});
 			})
 				
 			function getMenu(){
@@ -89,11 +77,12 @@
 
 							for(var i=0;i<list.length;i++){
 
-								innerHtml += '<div class="col-md-3 col-sm-6 col-xs-6" style="margin-top:15px;">'
-								innerHtml += '<div style="padding:1px;max-height: 350px;">'
-								innerHtml += "<img src='"+list[i].imageUrl+"' style='width:100%;opacity:0.7;max-height: 344px;border-radius:5px;'>";
-								innerHtml += '</div>'
-								innerHtml += '</div>'
+								innerHtml += '<div class="col-md-3 col-sm-6 col-xs-6" style="margin-top:15px;">';
+								innerHtml += '<div style="padding:1px;max-height: 350px;">';
+								innerHtml += "<img src='"+list[i].imageUrl+"' style='width:100%;opacity:0.7;max-height: 344px;border-radius:5px;'";
+								innerHtml += "onclick='javascript:window.location.href=\"" + list[i].actionUrl+"\"'>";
+								innerHtml += '</div>';
+								innerHtml += '</div>';
 							}
 
 							$("#menuDiv > .row").append(innerHtml);
@@ -178,8 +167,6 @@
 				</div>
 			</div>
 		</div>
-		
-		<input type="file" name="fileContent" id="fileContent" value="" />
 		
 		<input type="hidden" id="currentPage" value="1">
 	</body>

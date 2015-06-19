@@ -1,0 +1,144 @@
+<!--
+	创建时间 ： 2015年6月16日
+	创建人 ： LiRongZhu
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Indigo</title>
+		<script type="text/javascript" src="js/import.js" ></script>
+
+		<style type="text/css">
+
+			#registerForm label{
+				color : #FFF;
+			}
+		</style>
+
+		<script type="text/javascript">
+
+			var fileUploadObj = new Object();
+
+			$(function(){
+
+				var imageWidth = ($("#showImage").css("width").replace("px","") / 2 ) + "px";
+
+				$("#showImage").css("height",imageWidth);
+
+				$("#fileContent").uploadify({
+					'swf' : './component/uploadify/uploadify.swf',
+					'uploader' : 'fileUpload.idg',
+					'buttonText' : '上传',
+					'fileObjName' : 'fileContent', 
+					'type' : 'post',
+					'width' : '100', 
+					'onUploadSuccess' : function(data, response) {
+
+						fileUploadObj = JSON.parse(response);
+						
+						$("#showImage").html('<img src="' + fileUploadObj.imgUrl + '" style="height:' + imageWidth + ';width:' + imageWidth + ';border-radius:5px;"/>');
+						
+						$("#imageUrl").val(fileUploadObj.imgUrl);
+						$("#imageName").val(fileUploadObj.imgName);
+					}
+				});
+				
+				$("#registerSubmit").click(function(){
+					
+					$.ajax({
+						url:"submitRegister.idg",
+						type: 'post',
+						dataType:"text",
+						data : $("#registerForm").serialize(),
+						success:function(data){
+
+							if(data == "success"){
+
+								window.location.href = "index.idg"
+							}else{
+
+								alert("用户名或密码错误");
+							}
+						},
+						error:function(data){
+
+							alert(data);
+						}
+					});
+				})
+			})
+
+		</script>
+	</head>
+	<body>
+		<form id="registerForm" class="form-horizontal">
+			<div class="container" id="registerDiv">
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-11">
+						<div id="innerRegisterDiv">
+							<div class="form-group" style="text-align: center;">
+								<h1>Indigo</h1>
+							</div>
+							<div class="form-group">
+								<label for="enterName" class="col-sm-2 control-label">Name</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="enterName" name="enterName" placeholder="Name">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="enterAlias" class="col-sm-2 control-label">Email</label>
+								<div class="col-sm-10">
+									<input type="email" class="form-control" id="enterEmail" name="enterEmail" placeholder="Email">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="enterPassword" class="col-sm-2 control-label">Password</label>
+								<div class="col-sm-10">
+									<input type="password" class="form-control" id="enterPassword" name="enterPassword" placeholder="Password">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="enterAlias" class="col-sm-2 control-label">Alias</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="enterAlias" name="enterAlias" placeholder="Alias">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="enterAge" class="col-sm-2 control-label">Age</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="enterAge" name="enterAge" placeholder="20">
+								</div>
+							</div>							
+							<div class="form-group">
+								<label for="enterAddress" class="col-sm-2 control-label">Address</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="enterAddress" name="enterAddress" placeholder="Address">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="fileContent" class="col-sm-2 control-label">Image</label>
+								<div class="col-sm-4">
+									<input type="file" name="fileContent" id="fileContent" value="" />
+								</div>
+								<div class="col-sm-6" >
+									<div class="col-sm-10 col-md-10 col-xs-10" id="showImage">
+										&nbsp;
+									</div>
+									<input type="hidden" id="imageUrl" name="imageUrl">
+									<input type="hidden" id="imageName" name="imageName">
+								</div>
+							</div>
+							<div class="form-group" style="text-align: center;margin-top: 35px;">
+								<button type="button" class="btn btn-default" id="registerSubmit">Register</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>

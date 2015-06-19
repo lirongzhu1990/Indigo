@@ -35,4 +35,10 @@ public class UserRepository extends ParentRepository {
 		
 		return ( List<User> )getHibernateTemplate().find(hql);
 	}
+	
+	public User saveUser(User user){
+		
+		getHibernateTemplate().save(user);
+		return user;
+	}
 }

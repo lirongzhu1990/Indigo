@@ -1,8 +1,5 @@
 package com.idg.web.bean;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -70,18 +67,7 @@ public class User extends ParentBean{
 	}
 	public void setPassword(String password){
 		
-		String pass = password;
-		
-		try {
-			pass = MD5.EncoderByMd5(password);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}finally{
-			
-			this.password = pass;
-		}
+		this.password = MD5.EncoderByMd5(password);
 	}
 	public String getEmail() {
 		return email;
@@ -108,5 +94,16 @@ public class User extends ParentBean{
 	}
 	public void setIsActive(int isActive) {
 		this.isActive = isActive;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	
+	public String toCookie(){
+		
+		return this.name + ";" + this.password;
 	}
 }

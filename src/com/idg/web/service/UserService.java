@@ -20,4 +20,9 @@ public class UserService {
 		
 		return userRepository.findUser(queryMap);
 	}
+	
+	public User saveUser(User user){
+		
+		return userRepository.saveUser(user);
+	}
 }

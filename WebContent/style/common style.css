@@ -1,19 +1,28 @@
 body{
-	background: url(../img/indexBackGroundImage.png) no-repeat center center fixed;
+	background: url(../img/BackGroundImage/GreenBackGroundImage.png) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 }
 
-#innerLoginDiv{
-	margin-top:56%;
-	padding-top: 15px;
+#innerLoginDiv, #innerRegisterDiv{
+	padding-top: 12px;
 	padding-bottom: 10px;
 	padding-left: 15px;
 	padding-right: 15px;
-	border: solid 2px darkgray;
+	border: solid 1px darkgray;
 	border-radius: 5px;
+}
+
+#innerLoginDiv{
+	margin-top:56%;
+}
+
+#innerRegisterDiv{
+	
+	margin-top:5%;
+	margin-bottom:5%;
 }
 
 button {
